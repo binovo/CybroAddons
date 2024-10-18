@@ -1,0 +1,251 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_nutrition_allergen
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-17 14:30+0000\n"
+"PO-Revision-Date: 2024-10-17 14:30+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_nutrition_allergen
+#: model:ir.actions.report,print_report_name:product_nutrition_allergen.action_report_product_nutrition
+msgid "'product nutrition details'"
+msgstr "'Detalles nutricionales del producto'"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+msgid ""
+"<span class=\"page\"/>\n"
+"                                    /\n"
+"                                    <span class=\"topage\"/>"
+msgstr ""
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_product__nutrition_ids
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_template__nutrition_ids
+msgid "Adding nutrition information inproduct"
+msgstr "Agregar información nutricional al producto"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_information
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+msgid "Allergy"
+msgstr "Alergia"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_product__allergy_details
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_template__allergy_details
+msgid "Allergy Details"
+msgstr "Detalles de alergias"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_product__allergy_information
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_template__allergy_information
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_product__allergy_information
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_template__allergy_information
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_template_form_view
+msgid "Allergy Information"
+msgstr "Información de alergias"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_product__allergy_details
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_template__allergy_details
+msgid "Enable to add allergy information"
+msgstr "Habilitar para agregar información sobre alergias"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_product__ingredients_details
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_template__ingredients_details
+msgid "Enable to add ingredients details"
+msgstr "Habilitar para agregar detalles de ingredientes"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_product__nutrition_details
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_template__nutrition_details
+msgid "Enable to add nutrition information"
+msgstr "Habilitar para agregar información nutricional"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_nutrition__uom_id
+msgid "For getting unit of nutrition value"
+msgstr "Para obtener la unidad del valor nutricional"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_nutrition__nutrition_value
+msgid "Getting nutritional value"
+msgstr "Obtención del valor nutricional"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__id
+msgid "ID"
+msgstr ""
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_nutrition__name
+msgid "Identifying nutritional name"
+msgstr "Identificación del nombre nutricional"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_information
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+msgid "Ingredients"
+msgstr "Ingredientes"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_product__ingredients_details
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_template__ingredients_details
+msgid "Ingredients Details"
+msgstr "Detalle de ingredientes"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_product__ingredients_information
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_template__ingredients_information
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_product__ingredients_information
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_template__ingredients_information
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_template_form_view
+msgid "Ingredients Information"
+msgstr "Información de ingredientes"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_nutrition__product_template_id
+msgid "Inverse fields for nutrition_ids One2many field in product template"
+msgstr "Campos inversos para nutrition_ids Campo One2many en plantilla de producto"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_product__nutrition_ids
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_template__nutrition_ids
+msgid "Nutrition"
+msgstr "Nutrición"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_template_form_view
+msgid "Nutrition & Allergy"
+msgstr "Nutrición y alergias"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_product__nutrition_details
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_template__nutrition_details
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_information
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+msgid "Nutrition Details"
+msgstr "Detalles nutricionales"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+msgid "Nutrition Information"
+msgstr "Información nutricional"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+msgid "Nutrition Name"
+msgstr "Nombre nutricional"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+msgid "Nutrition Value"
+msgstr "Valor nutricional"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_product__nutrition_amount
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_template__nutrition_amount
+msgid "Nutrition amount per unit"
+msgstr "Cantidad nutricional por unidad"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_information
+msgid "Nutrition and Allergen Details"
+msgstr "Información nutricional y de alérgenos"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_product__nutrition_amount
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_template__nutrition_amount
+msgid "Nutrition as Per"
+msgstr "Nutrición según"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_product__unit_id
+#: model:ir.model.fields,help:product_nutrition_allergen.field_product_template__unit_id
+msgid "Nutrition unit"
+msgstr "Unidad nutricional"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_template_form_view
+msgid "Nutritional Information"
+msgstr "Información nutricional"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__name
+msgid "Nutritional Name"
+msgstr "Nombre nutricional"
+
+#. module: product_nutrition_allergen
+#: model:ir.model,name:product_nutrition_allergen.model_product_template
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__product_template_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_nutrition_allergen
+#: model:ir.actions.report,name:product_nutrition_allergen.action_report_product_nutrition
+#: model:ir.model,name:product_nutrition_allergen.model_product_nutrition
+#: model:res.groups,name:product_nutrition_allergen.product_nutrition_allergen_group_user
+msgid "Product Nutrition"
+msgstr "Producto nutricional"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__uom_id
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_product__unit_id
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_template__unit_id
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+msgid "Unit"
+msgstr "Unidad"
+
+#. module: product_nutrition_allergen
+#: model:ir.model.fields,field_description:product_nutrition_allergen.field_product_nutrition__nutrition_value
+msgid "Value"
+msgstr "valor"
+
+#. module: product_nutrition_allergen
+#: model_terms:ir.ui.view,arch_db:product_nutrition_allergen.product_nutrition_report
+msgid "per"
+msgstr "por"
+
