@@ -35,5 +35,6 @@ class Website(models.Model):
                                          comodel_name='res.country',
                                          help='Set a default country')
     cart_message = fields.Char(string="Cart Message",
+                               default='This product is not available in your country',
                                help='Custom message display if the product '
                                     'is not available')

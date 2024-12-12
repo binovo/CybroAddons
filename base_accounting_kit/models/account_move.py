@@ -65,7 +65,6 @@ class AccountMove(models.Model):
         return res
 
     def action_post(self):
-        print(self.line_ids, "line")
         result = super(AccountMove, self).action_post()
         for inv in self:
             context = dict(self.env.context)

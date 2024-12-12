@@ -120,7 +120,6 @@ class GeneralView(models.TransientModel):
         merged_data = {}
         for line in records['Accounts']:
             account_id = line['account_id']
-            print(line['balance'],'balance....')
             if account_id not in merged_data:
                 merged_data[account_id] = line
             else:
@@ -409,7 +408,6 @@ class GeneralView(models.TransientModel):
             else:
                 params = (tuple(accounts.ids),) + tuple(init_where_params)
             cr.execute(sql, params)
-            print('1...............')
             for row in cr.dictfetchall():
                 row['m_id'] = row['account_id']
                 move_lines[row.pop('account_id')].append(row)
@@ -476,9 +474,7 @@ class GeneralView(models.TransientModel):
         else:
             params = (tuple(accounts.ids),) + tuple(where_params)
         cr.execute(sql, params)
-        print('2.........')
         account_res = cr.dictfetchall()
-        print(account_res,'account res....')
         unique_line_ids = set()
         filtered_records = []
         for record in account_res:
@@ -530,8 +526,11 @@ class GeneralView(models.TransientModel):
                 [('type', '=', 'cash'), ('company_id', 'in', company_id)])
         # account based move lines
         if account_id:
-            accounts = self.env['account.account'].search(
-                [('id', '=', account_id)])
+            if isinstance(account_id, list):
+                domain = [('id', 'in', account_id)]
+            else:
+                domain = [('id', '=', account_id)]
+            accounts = self.env['account.account'].search(domain)
         else:
             company_id = self.env.companies
             company_domain = [('company_id', 'in', company_id.ids)]

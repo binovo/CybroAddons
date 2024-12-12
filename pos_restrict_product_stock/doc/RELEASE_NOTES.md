@@ -16,3 +16,9 @@ multiple warehouse
 #### ADD
 - Code updated. that quantity and forcast quantity would be updated in real time when a pos order was confirmed when 
 Also Changed the quantity visible for service product
+
+#### 11.11.2024
+#### Version 16.0.2.2.2
+#### Update
+- Added a new feature that restricts stock availability when clicking the payment button. 
+This will help prevent the ordering of out-of-stock products, whether entered via barcode or through any other method.

@@ -20,7 +20,8 @@
 #
 #############################################################################
 
-from odoo import fields, models
+from odoo import api, fields, models
+from odoo.exceptions import AccessError
 
 
 class ConnectionApi(models.Model):
@@ -45,3 +46,28 @@ class ConnectionApi(models.Model):
     is_delete = fields.Boolean(string='DELETE',
                                help="Select this to enable DELETE method "
                                     "while sending requests.")
+
+    @api.onchange('model_id')
+    def _onchange_model_id(self):
+        for record in self:
+            if record.model_id:
+                model_name = record.model_id.model
+                print(model_name)
+                # Check permissions
+                try:
+                    can_read = self.env[model_name].check_access_rights(
+                        'read', raise_exception=False)
+                    can_write = self.env[model_name].check_access_rights(
+                        'write', raise_exception=False)
+                    print(can_write,can_read)
+                    # record.can_create = self.env[
+                    #     model_name].check_access_rights('create',
+                    #                                     raise_exception=False)
+                    # record.can_unlink = self.env[
+                    #     model_name].check_access_rights('unlink',
+                    #                                     raise_exception=False)
+                except AccessError:
+                    can_read = False
+                    can_write = False
+                    can_create = False
+                    can_unlink = False

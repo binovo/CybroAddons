@@ -21,5 +21,31 @@ const RestrictProductScreen = (ProductScreen) => class RestrictProductScreen ext
             await super._clickProduct(event)
         }
     }
+    async _onClickPay() {
+     var type = this.env.pos.config.stock_type
+             const pay = true
+             const body = []
+             const pro_id = false
+            for (const line of this.env.pos.selectedOrder.orderlines) {
+             if (line.pos.config.is_restrict_product && ((type == 'qty_on_hand') && (line.product.qty_available <= 0)) | ((type == 'virtual_qty') && (line.product.virtual_available <= 0)) |
+                                     ((line.product.qty_available <= 0) && (line.product.virtual_available <= 0))) {
+                                     // If the product restriction is activated in the settings and quantity is out stock, it show the restrict popup.
+                                body.push(line.product.display_name)
+                 }
+             }
+             if (body.length > 0) { // Check if body has items
+                     const confirmed = await  this.showPopup("RestrictStockPopup", {
+                         body: body,
+                         pro_id: pro_id
+                     });
+                     if (confirmed == true) {
+                        return  super._onClickPay(...arguments);// Proceed with payment
+                     } else {
+                          return ;
+                     }
+                 } else {
+                    return  super._onClickPay(...arguments); // No restrictions, proceed with payment
+                 }
+             }
 }
 Registries.Component.extend(ProductScreen, RestrictProductScreen);

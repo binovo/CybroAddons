@@ -25,7 +25,7 @@
     "summary": """This app helps to interact with odoo
      backend with help of rest api requests""",
     "category": "Tools",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     'author': 'Cybrosys Techno Solutions',
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',

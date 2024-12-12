@@ -15,3 +15,8 @@
 #### Version 16.0.1.0.0
 #### FIX
 - Added UOM in Sales details report.
+
+#### 21.11.2024
+#### Version 16.0.1.1.1
+#### FIX
+- The price calculation has been updated. Previously, the unit of measure (UOM) price was determined based on the price specified for the UOM. Now, it is calculated based on the product's base price.
