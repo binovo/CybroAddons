@@ -38,9 +38,9 @@ class AddRecipient(models.TransientModel):
     def add_recipients(self):
         """On selecting the user to whom the mail is sent, the user is then
         added to config parameters"""
-        self.env['ir.config_parameter'].set_param('reply_to',
+        self.env['ir.config_parameter'].sudo().set_param('reply_to',
                                                   self.partner_id.id)
 
     @api.model
     def get_user(self, user_id):
-        self.env['ir.config_parameter'].set_param('reply_to', user_id)
+        self.env['ir.config_parameter'].sudo().set_param('reply_to', user_id)

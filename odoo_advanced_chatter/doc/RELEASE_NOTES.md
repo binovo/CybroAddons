@@ -9,3 +9,8 @@
 #### Version 16.0.2.0.0
 #### UPDATE
 - UPDATE
+
+#### 16.12.2024
+#### Version 16.0.2.0.1
+#### UPDATE
+- Solved the issue of user model access.

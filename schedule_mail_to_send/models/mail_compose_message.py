@@ -72,9 +72,20 @@ class MailComposeMessage(models.TransientModel):
             second=0)
         if not self.schedule_time:
             raise UserError('Invalid Schedule time')
-        if self.schedule_time and self.schedule_time > user_current_date:
+        date_scheduled = pytz.utc.localize(utc_current_datetime).astimezone(
+            user_tz)
+        user_schedule_datetime = date_scheduled.strftime(
+            '%Y-%m-%d %H:%M:%S')  # Converted to string and removed the utc time difference
+        user_schedule_datetime = datetime.datetime.strptime(user_schedule_datetime,
+                                                       "%Y-%m-%d %H:%M:%S").replace(
+            second=0)
+        if self.schedule_time and user_schedule_datetime < user_current_date:
             raise UserError('Invalid Schedule time')
-        model = self.env.context['default_res_model']
+        if self.env.context.get('default_model'):
+            model = self.env.context['default_model']
+        else:
+            self.env.context.get('default_res_model')
+            model = self.env.context['default_res_model']
         model_id = self.env['ir.model'].search([('model', '=', model)], limit=1)
         record_id = self.env.context['default_res_id']
         record = self.env[model].browse(record_id)
@@ -83,7 +94,7 @@ class MailComposeMessage(models.TransientModel):
                 'schedule_mail_to_send.mail_activity_schedule').id,
             'summary': self.subject,
             'note': self.body,
-            'date_deadline': self.schedule_time,
+            'date_deadline': user_schedule_datetime,
             'res_model_id': model_id.id,
             'res_id': record.id,
             'schedule_mail_id': schedule_mail.id

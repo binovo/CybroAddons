@@ -33,9 +33,9 @@ class MailMessage(models.Model):
         res_id = values.get('res_id',
                             self._context.get('default_res_id')) or False
         email_from = values.get('email_from')
-        reply_to_id = self.env['ir.config_parameter'].get_param('reply_to')
+        reply_to_id = self.env['ir.config_parameter'].sudo().get_param('reply_to')
         author1 = self.env['res.users'].browse(int(reply_to_id))
-        self.env['ir.config_parameter'].set_param('reply_to', self.env.user.id)
+        self.env['ir.config_parameter'].sudo().set_param('reply_to', self.env.user.id)
         email_from1 = author1.email_formatted
         message_type = values.get('message_type')
         records = None
