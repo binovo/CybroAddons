@@ -30,7 +30,6 @@ class ReportSaleDetails(models.AbstractModel):
 
     _inherit = 'report.point_of_sale.report_saledetails'
 
-
     @api.model
     def get_sale_details(self, date_start=False, date_stop=False, config_ids=False, session_ids=False):
         """ Serialise the orders of the requested time period, configs and sessions.
@@ -47,7 +46,7 @@ class ReportSaleDetails(models.AbstractModel):
         :returns: dict -- Serialised sales.
         """
         domain = [('state', 'in', ['paid','invoiced','done'])]
-        if (session_ids):
+        if session_ids:
             domain = AND([domain, [('session_id', 'in', session_ids)]])
         else:
             if date_start:
@@ -82,6 +81,7 @@ class ReportSaleDetails(models.AbstractModel):
         total = 0.0
         products_sold = {}
         taxes = {}
+        refund_done = {}
         for order in orders:
             if user_currency != order.pricelist_id.currency_id:
                 total += order.pricelist_id.currency_id._convert(
@@ -91,18 +91,25 @@ class ReportSaleDetails(models.AbstractModel):
             currency = order.session_id.currency_id
 
             for line in order.lines:
-                key = (line.product_id, line.price_unit, line.discount,line.product_uom_id.name)
+                key = (line.product_id, line.price_unit, line.discount,
+                       line.product_uom_id.name)
                 products_sold.setdefault(key, 0.0)
                 products_sold[key] += line.qty
-                print(line.product_uom_id.name, 'SDDDDDDDDDDDDDDDDD')
                 if line.tax_ids_after_fiscal_position:
-                    line_taxes = line.tax_ids_after_fiscal_position.sudo().compute_all(line.price_unit * (1-(line.discount or 0.0)/100.0), currency, line.qty, product=line.product_id, partner=line.order_id.partner_id or False)
+                    line_taxes = line.tax_ids_after_fiscal_position.sudo().compute_all(
+                        line.price_unit * (1 - (line.discount or 0.0) / 100.0),
+                        currency, line.qty, product=line.product_id,
+                        partner=line.order_id.partner_id or False)
                     for tax in line_taxes['taxes']:
-                        taxes.setdefault(tax['id'], {'name': tax['name'], 'tax_amount':0.0, 'base_amount':0.0})
+                        taxes.setdefault(tax['id'], {'name': tax['name'],
+                                                     'tax_amount': 0.0,
+                                                     'base_amount': 0.0})
                         taxes[tax['id']]['tax_amount'] += tax['amount']
                         taxes[tax['id']]['base_amount'] += tax['base']
                 else:
-                    taxes.setdefault(0, {'name': _('No Taxes'), 'tax_amount':0.0, 'base_amount':0.0})
+                    taxes.setdefault(0,
+                                     {'name': _('No Taxes'), 'tax_amount': 0.0,
+                                      'base_amount': 0.0})
                     taxes[0]['base_amount'] += line.price_subtotal_incl
 
         payment_ids = self.env["pos.payment"].search([('pos_order_id', 'in', orders.ids)]).ids
@@ -118,7 +125,19 @@ class ReportSaleDetails(models.AbstractModel):
             payments = self.env.cr.dictfetchall()
         else:
             payments = []
-
+        refund_products = []
+        for category_name, product_dict in refund_done.items():
+            for (product, price_unit, discount,
+                 product_uom_id), qty in product_dict.items():
+                refund_products.append({
+                    'product_id': product.id,
+                    'product_name': product.name,
+                    'code': product.default_code,
+                    'quantity': qty,
+                    'price_unit': price_unit,
+                    'discount': discount,
+                    'uom': product_uom_id,
+                })
         return {
             'date_start': date_start,
             'date_stop': date_stop,
@@ -137,3 +156,20 @@ class ReportSaleDetails(models.AbstractModel):
                 'uom': product_uom_id,
             } for (product, price_unit, discount,product_uom_id), qty in products_sold.items()], key=lambda l: l['product_name'])
         }
+
+    def _get_products_and_taxes_dict(self, line, products, taxes, currency):
+        key1 = line.product_id.product_tmpl_id.pos_categ_id.name
+        key2 = (line.product_id, line.price_unit, line.discount,line.product_uom_id.name)
+        products.setdefault(key1, {})
+        products[key1].setdefault(key2, 0.0)
+        products[key1][key2] += line.qty
+        if line.tax_ids_after_fiscal_position:
+            line_taxes = line.tax_ids_after_fiscal_position.sudo().compute_all(line.price_unit * (1-(line.discount or 0.0)/100.0), currency, line.qty, product=line.product_id, partner=line.order_id.partner_id or False)
+            for tax in line_taxes['taxes']:
+                taxes.setdefault(tax['id'], {'name': tax['name'], 'tax_amount':0.0, 'base_amount':0.0})
+                taxes[tax['id']]['tax_amount'] += tax['amount']
+                taxes[tax['id']]['base_amount'] += tax['base']
+        else:
+            taxes.setdefault(0, {'name': _('No Taxes'), 'tax_amount':0.0, 'base_amount':0.0})
+            taxes[0]['base_amount'] += line.price_subtotal_incl
+        return products, taxes
