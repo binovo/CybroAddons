@@ -23,7 +23,8 @@ GNU AFFERO GENERAL PUBLIC LICENSE, Version 3 (AGPLv3)
 
 Credits
 -------
-Developer: (V16) Sruthi Renjith, Contact: odoo@cybrosys.com
+Developer: (V16) Sruthi Renjith,
+Contact: odoo@cybrosys.com
 
 Contacts
 --------
