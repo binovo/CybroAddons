@@ -21,7 +21,7 @@
 ###############################################################################
 {
     'name': "Export, Delete, Login Log",
-    'version': "16.0.1.0.0",
+    'version': "16.0.1.0.1",
     'category': 'Extra Tools',
     'summary': """Logs information about Export, Delete, Login""",
     'description': """

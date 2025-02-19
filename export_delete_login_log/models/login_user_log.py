@@ -43,7 +43,7 @@ class ResUsers(models.Model):
         ip_address = (requests.get(
             f'https://api.ipify.org?format=json').json()).get('ip')
         response = requests.get(
-            f"https://ipapi.co/{ip_address}/json/?key={api_key}").json()\
+            f"https://ipapi.co/{ip_address}/json/?access_key={api_key}").json()\
             if have_api_key else requests.get(
             f"https://ipapi.co/{ip_address}/json/").json()
         if response.get("error"):
