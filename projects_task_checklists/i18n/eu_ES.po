@@ -1,0 +1,235 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* projects_task_checklists
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-21 12:47+0000\n"
+"PO-Revision-Date: 2025-11-21 12:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: projects_task_checklists
+#: model:ir.model.fields.selection,name:projects_task_checklists.selection__checklist_item_line__state__cancel
+msgid "Cancelled"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__check_list_item_id
+msgid "Check List Item"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_project_task__checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__checklist_ids
+#: model_terms:ir.ui.view,arch_db:projects_task_checklists.task_checklist_action_form
+msgid "CheckList Items"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__checklist_id
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__checklist_id
+#: model:ir.model.fields,field_description:projects_task_checklists.field_project_task__checklist_id
+#: model:ir.model.fields,field_description:projects_task_checklists.field_project_task__checklist_ids
+#: model:ir.ui.menu,name:projects_task_checklists.project_checklist_root
+#: model_terms:ir.ui.view,arch_db:projects_task_checklists.project_task_progress_notebook
+msgid "Checklist"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.actions.act_window,name:projects_task_checklists.checklist_activity_stage_action
+#: model:ir.ui.menu,name:projects_task_checklists.menu_checklist_activity_stage
+#: model_terms:ir.ui.view,arch_db:projects_task_checklists.checklist_activity_stages_action_form
+#: model_terms:ir.ui.view,arch_db:projects_task_checklists.checklist_activity_stages_action_tree
+msgid "Checklist Activity Stage"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model,name:projects_task_checklists.model_checklist_item
+#: model_terms:ir.ui.view,arch_db:projects_task_checklists.checklist_item_action_form
+msgid "Checklist Item"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model,name:projects_task_checklists.model_checklist_item_line
+msgid "Checklist Item Line"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_project_task_type__is_checklist
+msgid "Checklist Task"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model_terms:ir.actions.act_window,help:projects_task_checklists.task_checklist_action
+msgid "Create a checklist"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model_terms:ir.actions.act_window,help:projects_task_checklists.checklist_activity_stage_action
+msgid "Create a checklist activity"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_activity_stages__create_uid
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__create_uid
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__create_uid
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_activity_stages__create_date
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__create_date
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__create_date
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__description
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__description
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__description
+msgid "Description"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_activity_stages__display_name
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__display_name
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__display_name
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields.selection,name:projects_task_checklists.selection__checklist_item_line__state__done
+msgid "Done"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_project_task__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_activity_stages__id
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__id
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__id
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__id
+msgid "ID"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields.selection,name:projects_task_checklists.selection__checklist_item_line__state__in_progress
+msgid "In Progress"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_activity_stages____last_update
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item____last_update
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line____last_update
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_activity_stages__write_uid
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__write_uid
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__write_uid
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_activity_stages__write_date
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__write_date
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__write_date
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__name
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__name
+msgid "Name"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_project_task__checklist_progress
+msgid "Progress in %"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__project_id
+msgid "Project"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__projects_id
+msgid "Projects"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_activity_stages__stage_name
+msgid "Stage"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_project_task__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_item_line__state
+msgid "Status"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model,name:projects_task_checklists.model_project_task
+#: model:ir.model.fields,field_description:projects_task_checklists.field_task_checklist__task_ids
+msgid "Task"
+msgstr "Zeregina"
+
+#. module: projects_task_checklists
+#: model:ir.actions.act_window,name:projects_task_checklists.task_checklist_action
+#: model:ir.ui.menu,name:projects_task_checklists.menu_task_checklist
+#: model_terms:ir.ui.view,arch_db:projects_task_checklists.task_checklist_action_form
+#: model_terms:ir.ui.view,arch_db:projects_task_checklists.task_checklist_action_tree
+msgid "Task Checklist"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model,name:projects_task_checklists.model_project_task_type
+msgid "Task Stage"
+msgstr "Zereginaren etapa"
+
+#. module: projects_task_checklists
+#: model:ir.model.fields.selection,name:projects_task_checklists.selection__checklist_item_line__state__todo
+msgid "To Do"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model,name:projects_task_checklists.model_checklist_activity_stages
+msgid "checklist.activity.stages"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model.fields,field_description:projects_task_checklists.field_checklist_activity_stages__sequence
+msgid "sequence"
+msgstr ""
+
+#. module: projects_task_checklists
+#: model:ir.model,name:projects_task_checklists.model_task_checklist
+msgid "task.checklist"
+msgstr ""
