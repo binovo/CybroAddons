@@ -30,6 +30,7 @@ from odoo.addons.website.controllers.form import WebsiteForm
 
 class HelpdeskProduct(http.Controller):
     """It controls the website products and return the product."""
+
     @http.route('/product', auth='public', type='json')
     def product(self):
         """Product control function"""
@@ -45,11 +46,11 @@ class WebsiteFormInherit(WebsiteForm):
     controller to display a list of tickets for the current user in their
     portal, and overrides the website form controller's method for handling
     form submissions to create a new help desk ticket instead."""
+
     def _handle_website_form(self, model_name, **kwargs):
         """Website Help Desk Form"""
-        customer = request.env.user.partner_id
         if model_name == 'help.ticket':
-            tickets = request.env['ticket.stage'].search([])
+            tickets = request.env['ticket.stage'].sudo().search([])
             for rec in tickets:
                 sequence = tickets.mapped('sequence')
                 lowest_sequence = tickets.filtered(
@@ -57,6 +58,28 @@ class WebsiteFormInherit(WebsiteForm):
                 if rec == lowest_sequence:
                     lowest_stage_id = lowest_sequence
             products = kwargs.get('product')
+
+            # Check if user is logged in and not public user
+            if request.env.user and request.env.user.id != request.env.ref(
+                    'base.public_user').id:
+                partner_create = request.env.user.partner_id
+            else:
+                # Check if partner already exists with the same email
+                email = kwargs.get('email_from')
+                existing_partner = request.env['res.partner'].sudo().search([
+                    ('email', '=', email)
+                ], limit=1)
+                if existing_partner:
+                    partner_create = existing_partner
+                else:
+                    # Create new partner only if it doesn't exist
+                    partner_create = request.env['res.partner'].sudo().create({
+                        'name': kwargs.get('customer_name'),
+                        'company_name': kwargs.get('company'),
+                        'phone': kwargs.get('phone'),
+                        'email': kwargs.get('email_from')
+                    })
+
             if products:
                 splited_product = products.split(',')
                 product_list = [int(i) for i in splited_product]
@@ -69,7 +92,7 @@ class WebsiteFormInherit(WebsiteForm):
                     'priority': kwargs.get('priority'),
                     'product_ids': product_list,
                     'stage_id': lowest_stage_id.id,
-                    'customer_id': customer.id,
+                    'customer_id': partner_create.id,
                     'ticket_type': kwargs.get('ticket_type'),
                     'category_id': kwargs.get('category'),
                 }
@@ -81,7 +104,7 @@ class WebsiteFormInherit(WebsiteForm):
                 data = self.extract_data(model_record, request.params)
                 if ('ticket_attachment' in request.params or
                         request.httprequest.files or data.get(
-                        'attachments')):
+                            'attachments')):
                     attached_files = data.get('attachments')
                     for attachment in attached_files:
                         attached_file = attachment.read()
@@ -96,7 +119,6 @@ class WebsiteFormInherit(WebsiteForm):
                     'form_builder_model_model'] = model_record.model
                 request.session['form_builder_model'] = model_record.name
                 request.session['form_builder_id'] = ticket_id.id
-                return json.dumps({'id': ticket_id.id})
             else:
                 rec_val = {
                     'customer_name': kwargs.get('customer_name'),
@@ -106,7 +128,7 @@ class WebsiteFormInherit(WebsiteForm):
                     'phone': kwargs.get('phone'),
                     'priority': kwargs.get('priority'),
                     'stage_id': lowest_stage_id.id,
-                    'customer_id': customer.id,
+                    'customer_id': partner_create.id,
                     'ticket_type': kwargs.get('ticket_type'),
                     'category_id': kwargs.get('category'),
                 }
@@ -118,7 +140,7 @@ class WebsiteFormInherit(WebsiteForm):
                 data = self.extract_data(model_record, request.params)
                 if ('ticket_attachment' in request.params or
                         request.httprequest.files or data.get(
-                        'attachments')):
+                            'attachments')):
                     attached_files = data.get('attachments')
                     for attachment in attached_files:
                         attached_file = attachment.read()
@@ -132,7 +154,23 @@ class WebsiteFormInherit(WebsiteForm):
                 request.session['form_builder_model_model'] = model_record.model
                 request.session['form_builder_model'] = model_record.name
                 request.session['form_builder_id'] = ticket_id.id
-                return json.dumps({'id': ticket_id.id})
+            # Sent a confirmation mail upon Ticket creation
+            if ticket_id:
+                request.env['mail.mail'].sudo().create({
+                    'subject': 'Your Ticket Has Been Created',
+                    'body_html': f"<p>Hello {partner_create.name},</p><p>Your ticket <strong>{ticket_id.name}</strong> with the subject <strong>{ticket_id.subject}</strong> has been successfully submitted. Our support team will contact you soon.</p> <p>Thank You.</p>",
+                    'email_to': partner_create.email,
+                    'email_from': request.env.user.email or 'support@example.com',
+                }).send()
+                ticket_id.message_post(
+                    body="A confirmation email regarding the ticket creation has been sent to the customer.",
+                    subject="Ticket Confirmation Email",
+                    message_type='email',
+                    subtype_xmlid="mail.mt_comment",
+                )
+            return json.dumps({'id': ticket_id.id})
+
+
         else:
             model_record = request.env['ir.model'].sudo().search(
                 [('model', '=', model_name)])

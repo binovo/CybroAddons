@@ -20,7 +20,7 @@
 #############################################################################
 {
     'name': 'Website Restrict Country',
-    'version': '16.0.1.0.0',
+    'version': '16.0.1.1.0',
     'category': 'Website',
     'summary': """ The Website Restrict Country module allows you to set
     restrictions for products that are unavailable in certain countries.

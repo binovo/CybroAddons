@@ -10,7 +10,7 @@
 #### UPDT
 - Bug Fix and Change Functionality
 
-#### 09.01.2024
+#### 12.07.2024
 #### Version 16.0.2.1.2
-#### BUGFIX
-- Solved the issue in enterprise and added extra conditions to validation error.
+#### UPDT
+- Bug Fix for Invoice restriction

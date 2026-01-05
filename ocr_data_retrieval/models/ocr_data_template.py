@@ -140,6 +140,7 @@ class OCRDataTemplate(models.TransientModel):
                 text += pytesseract.image_to_string(segment) + "\n"
                 break
             except Exception:
+                print("Could not convert")
                 raise ValidationError(_("Data cannot be read"))
         # Assigning retrieved data into text field
         self.data = text

@@ -18,28 +18,29 @@
     <template id="country_selection">
         <t t-if="country">
             <li class="nav-item dropdown o_no_autohide_item js_countrymenu">
-            <a href="#" role="button" data-bs-toggle="dropdown" id="a_select"
-               class="dropdown-toggle nav-link fw-bold">
-                <img id="img_code_vat" class="js_img_country_code"
-                     t-att-src="country.image_url"
-                     width="30" height="20"/>
-            </a>
-            <div id="country_selection_menu" role="menu"
-                 class="dropdown-menu  ">
-                <t t-foreach="countries" t-as="country">
-                    <a href="#" class="dropdown-item js_countries"
-                       t-att-id="country.code"
-                       t-att-data-country_id="country.id"
-                       t-att-data-country_code="country.code"
-                       t-att-data-country_image_url="country.image_url">
-                        <img t-att-data-country-id="country.id"
-                             t-att-src="country.image_url"
-                             width="30" height="20"/>
-                        <span t-esc="country.name"/>
-                    </a>
-                </t>
-            </div>
-        </li>
+                <a href="#" role="button" data-bs-toggle="dropdown"
+                   id="a_select"
+                   class="dropdown-toggle nav-link fw-bold">
+                    <img id="img_code_vat" class="js_img_country_code"
+                         t-att-src="country.image_url"
+                         width="30" height="20"/>
+                </a>
+                <div id="country_selection_menu" role="menu"
+                     class="dropdown-menu  ">
+                    <t t-foreach="countries" t-as="country">
+                        <a href="#" class="dropdown-item js_countries"
+                           t-att-id="country.code"
+                           t-att-data-country_id="country.id"
+                           t-att-data-country_code="country.code"
+                           t-att-data-country_image_url="country.image_url">
+                            <img t-att-data-country-id="country.id"
+                                 t-att-src="country.image_url"
+                                 width="30" height="20"/>
+                            <span t-esc="country.name"/>
+                        </a>
+                    </t>
+                </div>
+            </li>
         </t>
     </template>
     <!--website_sale.suggested_products_list inherited template -->
@@ -70,7 +71,7 @@
                t-value="request.env['website'].get_current_website().default_country_id.id"/>
             <t t-set="product_select_country"
                t-value="product.country_selection_ids.mapped('country_id').ids"/>
-            <t t-if="current_select_country in product_select_country">
+            <t t-if="not product_select_country or current_select_country in product_select_country">
                 <a role="button"
                    t-attf-class="btn btn-outline-primary o_we_buy_now ms-1 #{'btn-lg' if ctaSizeBig else ''}"
                    href="#">
@@ -80,6 +81,7 @@
             </t>
         </xpath>
     </template>
+
     <!-- website_sale.short_cart_summary inherited template  -->
     <template id="checkout_process_country_restriction"
               name="Checkout Process Restriction"
@@ -88,7 +90,7 @@
             <t t-set="availability"
                t-value="website_sale_order.website_order_line.mapped('product_id.product_tmpl_id.country_availability')"/>
             <t t-set="product_select_country"
-               t-value="website_sale_order.get_common_country_list()"/>
+               t-value="website_sale_order.website_order_line.product_id.product_tmpl_id.country_selection_ids.mapped('country_id').ids"/>
             <t t-set="current_select_country"
                t-value="request.env['website'].get_current_website().default_country_id.id"/>
             <t t-if="all(country=='all' for country in availability) or current_select_country in product_select_country">

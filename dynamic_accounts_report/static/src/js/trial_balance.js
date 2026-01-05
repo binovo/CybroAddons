@@ -72,15 +72,36 @@ odoo.define('dynamic_accounts_report.trial_balance', function(require) {
 					],
 				}).then(function(datas) {
 
-
-
 					_.each(datas['report_lines'], function(rep_lines) {
 						rep_lines.debit = self.format_currency(datas['currency'], rep_lines.debit);
 						rep_lines.credit = self.format_currency(datas['currency'], rep_lines.credit);
 						rep_lines.balance = self.format_currency(datas['currency'], rep_lines.balance);
-
-
-
+						// Format dynamic prior-year fields if present
+						if (datas['filters'] && datas['filters']['comparison_years'] && datas['filters']['comparison_years'] > 0) {
+							for (var i = 1; i <= datas['filters']['comparison_years']; i++) {
+								var keyDebit = 'debit_prev_' + i;
+								var keyCredit = 'credit_prev_' + i;
+								if (rep_lines[keyDebit] !== undefined) {
+									rep_lines[keyDebit] = self.format_currency(datas['currency'], rep_lines[keyDebit]);
+								}
+								if (rep_lines[keyCredit] !== undefined) {
+									rep_lines[keyCredit] = self.format_currency(datas['currency'], rep_lines[keyCredit]);
+								}
+							}
+						}
+						// Format dynamic prior-month fields if present
+						if (datas['filters'] && datas['filters']['comparison_months'] && datas['filters']['comparison_months'] > 0) {
+							for (var i = 1; i <= datas['filters']['comparison_months']; i++) {
+								var keyDebitMonth = 'debit_month_' + i;
+								var keyCreditMonth = 'credit_month_' + i;
+								if (rep_lines[keyDebitMonth] !== undefined) {
+									rep_lines[keyDebitMonth] = self.format_currency(datas['currency'], rep_lines[keyDebitMonth]);
+								}
+								if (rep_lines[keyCreditMonth] !== undefined) {
+									rep_lines[keyCreditMonth] = self.format_currency(datas['currency'], rep_lines[keyCreditMonth]);
+								}
+							}
+						}
 					});
 					if (initial_render) {
 						self.$('.filter_view_tb').html(QWeb.render('TrialFilterView', {
@@ -92,9 +113,16 @@ odoo.define('dynamic_accounts_report.trial_balance', function(require) {
 						self.$el.find('.target_move').select2({
 							placeholder: 'Target Move...',
 						});
-						//                                    self.$el.find('#start_dateee').select2({
-						//                                        placeholder: 'Date.',
-						//                                    });
+						self.$el.find('.display_account').select2({
+							placeholder: 'Display Accounts...',
+						});
+						// Initialize comparison numeric input from wizard value
+						if (datas['filters'] && datas['filters']['comparison_years']) {
+							$("#comparison_years").val(datas['filters']['comparison_years']);
+						}
+						if (datas['filters'] && datas['filters']['comparison_months']) {
+							$("#comparison_months").val(datas['filters']['comparison_months']);
+						}
 					}
 					var child = [];
 
@@ -103,8 +131,12 @@ odoo.define('dynamic_accounts_report.trial_balance', function(require) {
 						report_lines: datas['report_lines'],
 						filter: datas['filters'],
 						currency: datas['currency'],
-						credit_total: self.format_currency(datas['currency'], datas['debit_total']),
+						credit_total: self.format_currency(datas['currency'], datas['credit_total']),
 						debit_total: self.format_currency(datas['currency'], datas['debit_total']),
+						debit_prev_totals: datas['debit_prev_totals'],
+						credit_prev_totals: datas['credit_prev_totals'],
+						debit_month_totals: datas['debit_month_totals'],
+						credit_month_totals: datas['credit_month_totals'],
 					}));
 
 				});
@@ -263,32 +295,32 @@ odoo.define('dynamic_accounts_report.trial_balance', function(require) {
 
 
 		apply_filter: function(event) {
-			event.preventDefault();
-			var self = this;
-			self.initial_render = false;
-			var filter_data_selected = {};
-			var journal_ids = [];
-			var journal_text = [];
-			var journal_res = document.getElementById("journal_res")
-			var journal_list = $(".journals").select2('data')
+            event.preventDefault();
+            var self = this;
+            self.initial_render = false;
+            var filter_data_selected = {};
+            var journal_ids = [];
+            var journal_text = [];
+            var journal_res = document.getElementById("journal_res");
+            var journal_list = $(".journals").select2('data');
 
-			for (var i = 0; i < journal_list.length; i++) {
-				if (journal_list[i].element[0].selected === true) {
+            for (var i = 0; i < journal_list.length; i++) {
+                if (journal_list[i].element[0].selected === true) {
+                    journal_ids.push(parseInt(journal_list[i].id));
+                    if (journal_text.includes(journal_list[i].text) === false) {
+                        journal_text.push(journal_list[i].text);
+                    }
+                    journal_res.value = journal_text;
+                    journal_res.innerHTML = journal_res.value;
+                }
+            }
 
-					journal_ids.push(parseInt(journal_list[i].id))
-					if (journal_text.includes(journal_list[i].text) === false) {
-						journal_text.push(journal_list[i].text)
-					}
-					journal_res.value = journal_text
-					journal_res.innerHTML = journal_res.value;
-				}
-			}
-			if (journal_list.length == 0) {
-				journal_res.value = ""
-				journal_res.innerHTML = "";
+            if (journal_list.length == 0) {
+                journal_res.value = "";
+                journal_res.innerHTML = "";
+            }
 
-			}
-			filter_data_selected.journal_ids = journal_ids
+            filter_data_selected.journal_ids = journal_ids;
 
 			if (this.$el.find('.datetimepicker-input[name="date_from"]').val()) {
 				filter_data_selected.date_from = moment(this.$el.find('.datetimepicker-input[name="date_from"]').val(), time.getLangDateFormat()).locale('en').format('YYYY-MM-DD');
@@ -318,16 +350,45 @@ odoo.define('dynamic_accounts_report.trial_balance', function(require) {
 
 				}
 			}
-			rpc.query({
-				model: 'account.trial.balance',
-				method: 'write',
-				args: [
-					self.wizard_id, filter_data_selected
-				],
-			}).then(function(res) {
-				self.initial_render = false;
-				self.load_data(self.initial_render);
-			});
+			   // Display Accounts Filter
+//            if ($(".display_account").length) {
+//                var display_account_res = document.getElementById("display_account_res");
+//                var display_account_select = $("#display_accounts");
+//                var selectedValue = display_account_select.val() || "all";
+//                filter_data_selected.display_account = selectedValue;
+//                display_account_res.innerHTML = selectedValue;
+//            }
+            if ($(".display_account").length) {
+                var display_account_res = document.getElementById("display_account_res");
+                var display_account_select = $("#display_accounts");
+                var selectedOption = display_account_select.find("option:selected").text();
+                filter_data_selected.display_account = display_account_select.val();
+                display_account_res.innerHTML = selectedOption;
+            }
+            // Comparison selector
+            var comparisonYears = $("#comparison_years").val();
+            if (comparisonYears !== undefined && comparisonYears !== '') {
+                filter_data_selected.comparison_years = parseInt(comparisonYears, 10);
+            } else {
+                filter_data_selected.comparison_years = 0;
+            }
+            // Comparison months selector
+            var comparisonMonths = $("#comparison_months").val();
+            if (comparisonMonths !== undefined && comparisonMonths !== '') {
+                filter_data_selected.comparison_months = parseInt(comparisonMonths, 10);
+            } else {
+                filter_data_selected.comparison_months = 0;
+            }
+            rpc.query({
+                model: 'account.trial.balance',
+                method: 'write',
+                args: [
+                    self.wizard_id, filter_data_selected
+                ],
+            }).then(function(res) {
+                self.initial_render = false;
+                self.load_data(self.initial_render);
+            });
 		},
 
 	});

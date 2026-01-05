@@ -38,7 +38,6 @@
         </field>
     </record>
     <!-- Action  for 'connection.api' model with Tree and form views.  -->
-
     <record id="rest_api_root_action" model="ir.actions.act_window">
         <field name="name">Rest API Records</field>
         <field name="type">ir.actions.act_window</field>
@@ -51,8 +50,7 @@
         </field>
     </record>
     <!-- Menu items for the REST API.  -->
-
-    <menuitem id="rest_api_root"
+    <menuitem id="rest_api_root" groups="base.group_system"
               name="Rest API"
               sequence="10"
               web_icon="rest_api_odoo,static/description/icon.png"/>

@@ -29,7 +29,6 @@ odoo.define('odoo_chatgpt_connector.chatgpt_search', function(require) {
                     method: 'get_chat_gpt_key',
                     args: [,],
                 }).then(result => {
-                console.log(result);
                     this.api_key = result;
                 });
             }
