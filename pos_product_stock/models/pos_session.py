@@ -83,7 +83,7 @@ class PosSession(models.Model):
         """this function should use the search_read
         method to search and read records from the base setting"""
         ResConfigSudo = self.env['res.config.settings'].sudo()
-        ResConfigSudo.create({})
+        ResConfigSudo.create({"pos_config_id": self.config_id.id})
         config_settings = ResConfigSudo.search_read(**params['search_params'], order="id desc")
         return config_settings[0]
 
