@@ -24,8 +24,7 @@
     'version': '16.0.1.0.0',
     'category': 'Discuss',
     'summary': """Read messages with a single click.""",
-    'description': """This module makes it easy for you to read messages
-     with a single click.""",
+    'description': """This module makes it easy for you to read messages with a single click.""",
     'author': 'Cybrosys Techno Solutions',
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',
@@ -38,5 +37,6 @@
     'license': "LGPL-3",
     'installable': True,
     'auto_install': False,
-    'application': False
+    'application': False,
+    'tests': ['tests'],
 }

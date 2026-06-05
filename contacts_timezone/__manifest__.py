@@ -46,4 +46,3 @@
     'application': False,
 }
 
-
