@@ -21,7 +21,7 @@
 ################################################################################
 {
     'name': "Menu Draggable",
-    'version': '16.0.1.0.0',
+    'version': '16.0.1.0.1',
     'category': 'Extra Tools',
     'summary': """Rearrange the position of menus in each module 
                 accordingly""",
